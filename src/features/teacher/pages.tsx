@@ -50,6 +50,26 @@ export const TeacherEnrollmentsPage = () => {
 export const TeacherAwardPage = () => {
   const { register, handleSubmit } = useForm<AwardPayload>();
   const award = useMutation({ mutationFn: (data: AwardPayload) => postWithIdempotency(endpoints.awards, data) });
+=======
+export const TeacherHomePage = () => {
+  const { data } = useQuery({ queryKey: ['teacher-home'], queryFn: async () => (await http.get('/groups', { params: { limit: 20, offset: 0 } })).data });
+  return <div className="space-y-3"><PageHeader title="Teacher Home" />{(data?.items ?? []).map((g: any) => <div className="rounded-xl border p-4" key={g.id}>{g.name}</div>)}</div>;
+};
+
+export const TeacherGroupsPage = () => {
+  const { data } = useQuery({ queryKey: ['teacher-groups'], queryFn: async () => (await http.get(endpoints.groups)).data });
+  return <div className="space-y-3"><PageHeader title="My groups" />{(data?.items ?? []).map((g: any) => <div className="rounded-xl border p-4" key={g.id}>{g.name}</div>)}</div>;
+};
+
+export const TeacherEnrollmentsPage = () => {
+  const { data } = useQuery({ queryKey: ['pending-enrollments'], queryFn: async () => (await http.get('/groups/current/enrollments', { params: { status: 'pending' } })).data });
+  const action = useMutation({ mutationFn: ({ studentId, groupId, kind }: any) => http.post(`/enrollments/${studentId}/${groupId}/${kind}`) });
+  return <div className="space-y-3"><PageHeader title="Pending enrollments" />{(data?.items ?? []).map((e: any) => <EnrollmentCard key={e.student_id} name={e.student_name} onApprove={() => action.mutate({ studentId: e.student_id, groupId: e.group_id, kind: 'approve' })} onReject={() => action.mutate({ studentId: e.student_id, groupId: e.group_id, kind: 'reject' })} />)}<div>{(data?.items ?? []).map((e: any) => <EnrollmentRow key={`${e.student_id}-row`} name={e.student_name} onApprove={() => action.mutate({ studentId: e.student_id, groupId: e.group_id, kind: 'approve' })} onReject={() => action.mutate({ studentId: e.student_id, groupId: e.group_id, kind: 'reject' })} />)}</div></div>;
+};
+
+export const TeacherAwardPage = () => {
+  const { register, handleSubmit } = useForm<{ student_id: string; group_id: string; amount: number; reason: string }>();
+  const award = useMutation({ mutationFn: (data: any) => postWithIdempotency(endpoints.awards, data) });
   return <form className="space-y-3" onSubmit={handleSubmit((v) => award.mutate(v))}><PageHeader title="Award coins" /><Input placeholder="Student ID" {...register('student_id')} /><Input placeholder="Group ID" {...register('group_id')} /><Input type="number" placeholder="Amount" {...register('amount', { valueAsNumber: true })} /><Input placeholder="Reason" {...register('reason')} /><Button className="w-full" disabled={award.isPending}>{award.isPending ? 'Pending...' : 'Award'}</Button></form>;
 };
 
