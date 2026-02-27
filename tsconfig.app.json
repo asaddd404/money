@@ -13,6 +13,14 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": ["src/tests"]
+
     "types": ["vitest/globals"],
     "baseUrl": ".",
     "paths": {"@/*": ["src/*"]}

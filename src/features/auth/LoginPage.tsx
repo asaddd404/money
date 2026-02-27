@@ -1,6 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
+import { Link, useNavigate } from 'react-router-dom';
+
 import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import { endpoints } from '@/api/endpoints';
@@ -47,6 +49,12 @@ export const LoginPage = () => {
         {errors.password && <p className="mt-1 text-xs text-destructive">{errors.password.message}</p>}
       </div>
       <Button className="w-full" type="submit" disabled={loginMutation.isPending}>{loginMutation.isPending ? 'Signing in...' : 'Sign in'}</Button>
+      <p className="text-center text-sm text-muted-foreground">
+        Нет аккаунта?{' '}
+        <Link className="font-medium text-primary underline-offset-4 hover:underline" to="/auth/register">
+          Зарегистрироваться
+        </Link>
+      </p>
     </form>
   );
 };

@@ -1,3 +1,4 @@
+```
 # Money Frontend (React + Vite + TypeScript)
 
 Полноценный mobile-first фронтенд для FastAPI backend (`/api/v1`) с ролевым UX:
@@ -34,13 +35,50 @@ cp .env.example .env
 По умолчанию refresh token хранится только в памяти (без `localStorage`), это безопаснее при XSS.
 Опциональный `sessionStorage` добавлен для UX после reload, но это менее безопасно, поэтому выключен по умолчанию.
 
-## Запуск
+
+### 1) Поднять Postgres и API
+```bash
+cd backend
+docker compose up --build -d
+```
+
+### 2) Применить миграции
+```bash
+cd backend
+alembic upgrade head
+```
+
+### 3) Создать `center` (если в БД еще пусто)
+```bash
+docker exec -it backend-db-1 psql -U postgres -d coins -c "INSERT INTO centers (name, timezone) VALUES ('Main Center','UTC');"
+```
+
+### 4) Создать главного admin в БД
+```bash
+cd backend
+python scripts/create_admin.py --email admin@example.com --password 'StrongPass123!' --full-name 'Main Admin' --center-id 1
+```
+
+
 ```bash
 npm install
 npm run dev
 ```
 
-## Проверки
+### 6) Как зайти
+- Откройте `http://localhost:5173/auth/login`.
+- Для главного пользователя введите admin email/password из шага 4.
+- После логина произойдет редирект в `/app/admin/home`.
+
+### 7) Как проходит регистрация
+- Откройте `http://localhost:5173/auth/register`.
+- Заполните `full_name`, `email`, `password`, `center_id`.
+- Форма отправляет `POST /api/v1/auth/register-student`.
+- После успешной регистрации фронт возвращает на `/auth/login`.
+- Вход выполняется через `POST /api/v1/auth/login`.
+
+
+
 ```bash
 npm run lint
 npm run test
@@ -85,3 +123,4 @@ UI ожидает backend contract из задания: единый форма�
 }
 ```
 `message` показывается в toast/inline, `code` логируется в dev-консоль, `details` выводятся в expandable блоке.
+```

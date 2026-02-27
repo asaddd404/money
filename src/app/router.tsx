@@ -3,6 +3,7 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { AppShell } from '@/app/layouts/AppShell';
 import { AuthLayout } from '@/app/layouts/AuthLayout';
 import { LoginPage } from '@/features/auth/LoginPage';
+import { RegisterPage } from '@/features/auth/RegisterPage';
 import { GlobalErrorPage, NotFoundPage, ProfilePage, SettingsPage } from '@/features/common/pages';
 import { StudentGroupsPage, StudentHomePage, StudentLeaderboardsPage, StudentOrdersPage, StudentShopPage, StudentTransactionsPage, StudentWalletPage } from '@/features/student/pages';
 import { TeacherAwardPage, TeacherEnrollmentsPage, TeacherGroupsPage, TeacherHomePage, TeacherLeaderboardsPage } from '@/features/teacher/pages';
@@ -30,6 +31,7 @@ export const AppRouter = () => {
       <Routes location={location} key={location.pathname}>
         <Route path="/auth" element={<AuthLayout />}>
           <Route path="login" element={<LoginPage />} />
+          <Route path="register" element={<RegisterPage />} />
         </Route>
 
         <Route path="/app" element={<AppShell />}>

@@ -1,6 +1,7 @@
 export const endpoints = {
   auth: {
     login: '/auth/login',
+    registerStudent: '/auth/register-student',
     refresh: '/auth/refresh',
     logout: '/auth/logout'
   },
