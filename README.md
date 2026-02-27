@@ -97,6 +97,39 @@ npm run test
 npm run build
 ```
 
+## GitHub пишет: `This branch has conflicts that must be resolved`
+
+Если GitHub блокирует merge из-за конфликтов, решайте их через CLI по шагам:
+
+```bash
+# 1) Обновить ссылки на удаленные ветки
+git fetch origin
+
+# 2) Переключиться на вашу рабочую ветку
+git checkout work
+
+# 3) Влить актуальную main в вашу ветку
+git merge origin/main
+```
+
+Дальше откройте файлы с маркерами конфликта (`<<<<<<<`, `=======`, `>>>>>>>`), оставьте нужный код и удалите маркеры.
+
+Проверка, что маркеров больше нет:
+
+```bash
+rg -n "<<<<<<<|=======|>>>>>>>" --glob '!node_modules/**'
+```
+
+Завершение:
+
+```bash
+git add .
+git commit -m "Resolve merge conflicts with main"
+git push origin work
+```
+
+После push GitHub пересчитает статус PR, и кнопку merge можно будет нажать.
+
 ## Auth flow
 
 1. `POST /api/v1/auth/login`
