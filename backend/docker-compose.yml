@@ -6,7 +6,7 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: coins
     ports:
-      - "5432:5432"
+      - '5432:5432'
     volumes:
       - pgdata:/var/lib/postgresql/data
   api:
@@ -14,7 +14,7 @@ services:
     env_file:
       - .env.example
     ports:
-      - "8000:8000"
+      - '8000:8000'
     depends_on:
       - db
 volumes:
