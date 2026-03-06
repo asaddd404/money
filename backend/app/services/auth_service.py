@@ -93,6 +93,7 @@ class AuthService:
         if row and row.revoked_at is None:
             await self.refresh_repo.revoke(row)
 
+
     def __init__(self, users:UserRepository, wallets:WalletRepository, refresh_repo:RefreshTokenRepository):
         self.users=users; self.wallets=wallets; self.refresh_repo=refresh_repo
 

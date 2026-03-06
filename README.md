@@ -13,6 +13,7 @@
 cd frontend
 cp .env.example .env
 
+
 # Money Frontend (React + Vite + TypeScript)
 
 Полноценный mobile-first фронтенд для FastAPI backend (`/api/v1`) с ролевым UX:
@@ -85,11 +86,7 @@ python scripts/create_admin.py --email admin@example.com --password 'StrongPass1
 
 ### 5) Запустить frontend
 
-```bash
- main
-npm install
-npm run dev
-```
+
 
 
 

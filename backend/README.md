@@ -1,11 +1,6 @@
 # Coins + Groups + Leaderboards + Shop + Orders
 
 ## Run Postgres + API
-===
-
- codex/create-production-ready-fastapi-project-r78nlw
-
-
 
 ```bash
 cd backend
@@ -20,6 +15,8 @@ alembic upgrade head
 ```
 
 ## Run app locally
+> For local `uvicorn` run, use `DATABASE_URL=postgresql+asyncpg://postgres:postgres@localhost:5432/coins`.
+> Inside Docker Compose, API is forced to `...@db:5432/...`.
 
 ```bash
 cd backend
@@ -45,6 +42,7 @@ curl -X POST http://localhost:8000/api/v1/auth/bootstrap-admin \
 ```
 
 ## Tests
+
 
 ## Tests
 ## Create first center (required before users)
@@ -99,9 +97,6 @@ pytest -q
 ```
 
 ## Assumptions
-
- codex/create-production-ready-fastapi-project-r78nlw
-
 
 - Leaderboard timezone defaults to UTC in routes.
 - Idempotency key is required for awards, enroll, and create order.
