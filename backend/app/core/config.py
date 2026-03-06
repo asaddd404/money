@@ -12,6 +12,8 @@ class Settings(BaseSettings):
     api_prefix: str = '/api/v1'
 
     database_url: str = Field(default='postgresql+asyncpg://postgres:postgres@localhost:5432/coins')
+    database_url: str = Field(default='postgresql+asyncpg://postgres:postgres@db:5432/coins')
+
 
     jwt_secret_key: str = 'change_me'
     jwt_algorithm: str = 'HS256'
