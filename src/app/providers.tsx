@@ -15,7 +15,11 @@ const ThemeProvider = ({ children }: PropsWithChildren) => {
   }, [theme]);
   return (
     <div data-theme={theme}>
-      <button aria-label="toggle-theme" className="fixed right-4 top-4 z-[60] rounded-full border bg-background px-3 py-2 text-xs" onClick={() => setTheme((p) => (p === 'light' ? 'dark' : 'light'))}>
+      <button
+        aria-label="toggle-theme"
+        className="fixed right-4 top-4 z-[60] rounded-full border bg-background px-3 py-2 text-xs"
+        onClick={() => setTheme((p) => (p === 'light' ? 'dark' : 'light'))}
+      >
         {theme === 'light' ? '🌙' : '☀️'}
       </button>
       {children}

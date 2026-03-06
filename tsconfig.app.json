@@ -20,10 +20,4 @@
   },
   "include": ["src"],
   "exclude": ["src/tests"]
-
-    "types": ["vitest/globals"],
-    "baseUrl": ".",
-    "paths": {"@/*": ["src/*"]}
-  },
-  "include": ["src", "vite.config.ts"]
 }

@@ -45,23 +45,63 @@ export const AppShell = () => {
     <div className="mx-auto flex min-h-screen max-w-7xl bg-background">
       <aside className="hidden w-64 border-r p-4 md:block">
         <p className="mb-4 text-lg font-semibold">Money Platform</p>
-        <div className="space-y-1">{nav.map((item) => <Link key={item.to} to={item.to} className={`block rounded-md px-3 py-3 text-sm ${location.pathname.startsWith(item.to) ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'}`}>{item.label}</Link>)}</div>
+        <div className="space-y-1">
+          {nav.map((item) => (
+            <Link
+              key={item.to}
+              to={item.to}
+              className={`block rounded-md px-3 py-3 text-sm ${location.pathname.startsWith(item.to) ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'}`}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </div>
       </aside>
       <main className="flex-1 pb-20 md:pb-6">
         <header className="sticky top-0 z-40 flex items-center justify-between border-b bg-background/90 px-4 py-3 backdrop-blur">
-          <div><p className="font-semibold">{user?.full_name ?? 'User'}</p><RoleBadge role={role} /></div>
+          <div>
+            <p className="font-semibold">{user?.full_name ?? 'User'}</p>
+            <RoleBadge role={role} />
+          </div>
           <Sheet>
-            <SheetTrigger asChild><button className="rounded-md border p-2 md:hidden"><Menu className="size-4" /></button></SheetTrigger>
-            <SheetContent><div className="space-y-2 pt-6">{nav.map((item) => <Link key={item.to} to={item.to} className="block rounded-md border px-3 py-3">{item.label}</Link>)}</div></SheetContent>
+            <SheetTrigger asChild>
+              <button className="rounded-md border p-2 md:hidden">
+                <Menu className="size-4" />
+              </button>
+            </SheetTrigger>
+            <SheetContent>
+              <div className="space-y-2 pt-6">
+                {nav.map((item) => (
+                  <Link
+                    key={item.to}
+                    to={item.to}
+                    className="block rounded-md border px-3 py-3"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </SheetContent>
           </Sheet>
         </header>
-        <div className="p-4"><Outlet /></div>
+        <div className="p-4">
+          <Outlet />
+        </div>
       </main>
       <nav className="fixed bottom-0 left-0 right-0 z-50 grid grid-cols-5 border-t bg-background md:hidden">
         {nav.map((item) => {
           const Icon = item.icon;
           const active = location.pathname.startsWith(item.to);
-          return <Link key={item.to} to={item.to} className={`flex min-h-14 flex-col items-center justify-center text-xs ${active ? 'text-primary' : 'text-muted-foreground'}`}><Icon className="mb-1 size-4" />{item.label}</Link>;
+          return (
+            <Link
+              key={item.to}
+              to={item.to}
+              className={`flex min-h-14 flex-col items-center justify-center text-xs ${active ? 'text-primary' : 'text-muted-foreground'}`}
+            >
+              <Icon className="mb-1 size-4" />
+              {item.label}
+            </Link>
+          );
         })}
       </nav>
     </div>

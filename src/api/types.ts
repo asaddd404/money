@@ -39,7 +39,13 @@ export interface Product {
 export interface Order {
   id: string;
   product_id: string;
-  status: 'pending' | 'approved' | 'rejected' | 'handed_over' | 'cancelled' | 'completed';
+  status:
+    | 'pending'
+    | 'approved'
+    | 'rejected'
+    | 'handed_over'
+    | 'cancelled'
+    | 'completed';
   quantity: number;
   created_at: string;
 }

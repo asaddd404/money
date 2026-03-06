@@ -5,7 +5,8 @@ import { LoginPage } from '@/features/auth/LoginPage';
 import { http } from '@/api/http';
 
 vi.mock('@/api/http', async () => {
-  const actual = await vi.importActual<any>('@/api/http');
+  const actual =
+    await vi.importActual<typeof import('@/api/http')>('@/api/http');
   return {
     ...actual,
     http: {
@@ -18,8 +19,15 @@ vi.mock('@/api/http', async () => {
 
 describe('login flow', () => {
   it('navigates to role home after login', async () => {
-    (http.post as any).mockResolvedValue({ data: { access_token: 'a', refresh_token: 'r' } });
-    (http.get as any).mockResolvedValue({ data: { id: '1', full_name: 'Test', email: 't@t.com', role: 'teacher' } });
+    const postMock = vi.mocked(http.post);
+    const getMock = vi.mocked(http.get);
+
+    postMock.mockResolvedValue({
+      data: { access_token: 'a', refresh_token: 'r' }
+    } as Awaited<ReturnType<typeof http.post>>);
+    getMock.mockResolvedValue({
+      data: { id: '1', full_name: 'Test', email: 't@t.com', role: 'teacher' }
+    } as Awaited<ReturnType<typeof http.get>>);
 
     render(
       <QueryClientProvider client={new QueryClient()}>
@@ -32,10 +40,16 @@ describe('login flow', () => {
       </QueryClientProvider>
     );
 
-    fireEvent.change(screen.getByPlaceholderText(/email/i), { target: { value: 't@t.com' } });
-    fireEvent.change(screen.getByPlaceholderText(/password/i), { target: { value: '1234' } });
+    fireEvent.change(screen.getByPlaceholderText(/email/i), {
+      target: { value: 't@t.com' }
+    });
+    fireEvent.change(screen.getByPlaceholderText(/password/i), {
+      target: { value: '1234' }
+    });
     fireEvent.click(screen.getByRole('button', { name: /sign in/i }));
 
-    await waitFor(() => expect(screen.getByText(/Teacher Home/i)).toBeInTheDocument());
+    await waitFor(() =>
+      expect(screen.getByText(/Teacher Home/i)).toBeInTheDocument()
+    );
   });
 });

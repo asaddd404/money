@@ -1,4 +1,8 @@
-import axios, { AxiosError, AxiosHeaders, type InternalAxiosRequestConfig } from 'axios';
+import axios, {
+  AxiosError,
+  AxiosHeaders,
+  type InternalAxiosRequestConfig
+} from 'axios';
 import { toast } from 'sonner';
 import { useAuthStore } from '@/store/auth.store';
 import type { ApiErrorPayload, Tokens } from '@/api/types';
@@ -18,12 +22,16 @@ class ApiError extends Error {
 let refreshPromise: Promise<string | null> | null = null;
 
 const parseApiError = (error: unknown) => {
-  const fallback = new ApiError({ code: 'UNKNOWN_ERROR', message: 'Something went wrong' });
+  const fallback = new ApiError({
+    code: 'UNKNOWN_ERROR',
+    message: 'Something went wrong'
+  });
   if (!axios.isAxiosError(error)) return fallback;
   const payload = error.response?.data as ApiErrorPayload | undefined;
   if (payload?.error) {
     const parsed = new ApiError(payload.error);
-    if (import.meta.env.DEV) console.error('API_ERROR_CODE', parsed.code, parsed.details);
+    if (import.meta.env.DEV)
+      console.error('API_ERROR_CODE', parsed.code, parsed.details);
     return parsed;
   }
   return fallback;
@@ -37,8 +45,15 @@ export const http = axios.create({
 const refreshToken = async () => {
   const store = useAuthStore.getState();
   if (!store.refreshToken) return null;
-  const { data } = await axios.post<Tokens>(`${apiUrl}/auth/refresh`, { refresh_token: store.refreshToken }, { withCredentials: true });
-  store.setSession({ accessToken: data.access_token, refreshToken: data.refresh_token ?? store.refreshToken });
+  const { data } = await axios.post<Tokens>(
+    `${apiUrl}/auth/refresh`,
+    { refresh_token: store.refreshToken },
+    { withCredentials: true }
+  );
+  store.setSession({
+    accessToken: data.access_token,
+    refreshToken: data.refresh_token ?? store.refreshToken
+  });
   return data.access_token;
 };
 
@@ -54,10 +69,13 @@ http.interceptors.request.use((config: InternalAxiosRequestConfig) => {
 http.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
-    const original = error.config as InternalAxiosRequestConfig & { _retry?: boolean };
+    const original = error.config as InternalAxiosRequestConfig & {
+      _retry?: boolean;
+    };
     if (error.response?.status === 401 && !original?._retry) {
       original._retry = true;
-      refreshPromise = refreshPromise ?? refreshToken().finally(() => (refreshPromise = null));
+      refreshPromise =
+        refreshPromise ?? refreshToken().finally(() => (refreshPromise = null));
       const nextAccess = await refreshPromise;
       if (nextAccess) {
         original.headers = new AxiosHeaders(original.headers);
@@ -74,6 +92,8 @@ http.interceptors.response.use(
 );
 
 export const postWithIdempotency = <T>(url: string, body: unknown) =>
-  http.post<T>(url, body, { headers: { 'Idempotency-Key': crypto.randomUUID() } });
+  http.post<T>(url, body, {
+    headers: { 'Idempotency-Key': crypto.randomUUID() }
+  });
 
 export { ApiError };
