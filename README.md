@@ -1,4 +1,4 @@
-codex/create-production-ready-fastapi-project-r78nlw
+
 # Money Monorepo
 
 ## Backend
@@ -90,6 +90,7 @@ python scripts/create_admin.py --email admin@example.com --password 'StrongPass1
 npm install
 npm run dev
 ```
+
 
 codex/create-production-ready-fastapi-project-r78nlw
 By deflt frontend expects backend API at `http://localhost:8000/api/v1`.

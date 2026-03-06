@@ -8,6 +8,14 @@ class RegisterStudentIn(BaseModel):
     center_id: int
 
 
+class BootstrapAdminIn(BaseModel):
+    email: EmailStr
+    password: str
+    full_name: str
+    center_name: str
+    timezone: str = 'UTC'
+
+
 class LoginIn(BaseModel):
     email: EmailStr
     password: str

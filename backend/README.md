@@ -1,9 +1,11 @@
 # Coins + Groups + Leaderboards + Shop + Orders
 
 ## Run Postgres + API
+
  codex/create-production-ready-fastapi-project-r78nlw
 
 
+ main
  main
 ```bash
 cd backend
@@ -33,6 +35,16 @@ curl -X POST http://localhost:8000/api/v1/auth/login -H 'Content-Type: applicati
 curl http://localhost:8000/health
 ```
 
+
+## Bootstrap first admin
+```bash
+curl -X POST http://localhost:8000/api/v1/auth/bootstrap-admin \
+  -H "Content-Type: application/json" \
+  -H "X-Bootstrap-Token: change_me_bootstrap_admin" \
+  -d '{"email":"admin@test.com","password":"Admin123!","full_name":"Admin","center_name":"Main Center","timezone":"UTC"}'
+```
+
+## Tests
 ## Tests
 ## Create first center (required before users)
 
@@ -89,6 +101,6 @@ pytest -q
  codex/create-production-ready-fastapi-project-r78nlw
 
 
->>>>>>> main
+ main
 - Leaderboard timezone defaults to UTC in routes.
 - Idempotency key is required for awards, enroll, and create order.

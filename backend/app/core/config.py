@@ -20,6 +20,8 @@ class Settings(BaseSettings):
 
     cors_origins: str = 'http://localhost:3000,http://localhost:5173'
 
+    bootstrap_admin_token: str = 'change_me_bootstrap_admin'
+
 
 @lru_cache
 def get_settings() -> Settings:
