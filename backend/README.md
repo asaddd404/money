@@ -1,12 +1,12 @@
 # Coins + Groups + Leaderboards + Shop + Orders
 
 ## Run Postgres + API
+===
 
  codex/create-production-ready-fastapi-project-r78nlw
 
 
- main
- main
+
 ```bash
 cd backend
 docker compose up --build -d
@@ -14,13 +14,13 @@ docker compose up --build -d
 
 ## Migrations
 
- main
 ```bash
 cd backend
 alembic upgrade head
 ```
 
 ## Run app locally
+
 ```bash
 cd backend
 python -m venv .venv && source .venv/bin/activate
@@ -45,6 +45,7 @@ curl -X POST http://localhost:8000/api/v1/auth/bootstrap-admin \
 ```
 
 ## Tests
+
 ## Tests
 ## Create first center (required before users)
 
@@ -98,9 +99,9 @@ pytest -q
 ```
 
 ## Assumptions
+
  codex/create-production-ready-fastapi-project-r78nlw
 
 
- main
 - Leaderboard timezone defaults to UTC in routes.
 - Idempotency key is required for awards, enroll, and create order.

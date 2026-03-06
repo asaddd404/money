@@ -7,6 +7,7 @@ from app.repositories.users import UserRepository
 from app.repositories.wallets import WalletRepository
 from app.repositories.refresh_tokens import RefreshTokenRepository
 from app.schemas.auth import BootstrapAdminIn, RegisterStudentIn, LoginIn, RefreshIn, TokenOut
+
 from fastapi import APIRouter, Depends
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.api.deps import db_dep
@@ -67,6 +68,7 @@ async def logout(payload: RefreshIn, db: AsyncSession = Depends(db_dep)):
     await svc.logout(payload.refresh_token)
     await db.commit()
     return {'ok': True}
+
 
 @router.post('/register-student')
 async def register_student(payload: RegisterStudentIn, db: AsyncSession = Depends(db_dep)):

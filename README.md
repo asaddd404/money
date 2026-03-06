@@ -1,4 +1,3 @@
-
 # Money Monorepo
 
 ## Backend
@@ -13,6 +12,7 @@
 ```bash
 cd frontend
 cp .env.example .env
+
 # Money Frontend (React + Vite + TypeScript)
 
 Полноценный mobile-first фронтенд для FastAPI backend (`/api/v1`) с ролевым UX:
@@ -92,7 +92,7 @@ npm run dev
 ```
 
 
-codex/create-production-ready-fastapi-project-r78nlw
+
 By deflt frontend expects backend API at `http://localhost:8000/api/v1`.
 
 ### 6) Как зайти

@@ -7,6 +7,7 @@ services:
       POSTGRES_DB: coins
     ports:
       - "5432:5432"
+
       -"5432:5432"
 
       - '5432:5432'
@@ -17,6 +18,11 @@ services:
     build: .
     env_file:
       - .env.example
+    environment:
+      DATABASE_URL: postgresql+asyncpg://postgres:postgres@db:5432/coins
+    ports:
+      - "8000:8000"
+
     ports:
       - "8000:8000"
       - "8000:8000"
