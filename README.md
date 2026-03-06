@@ -1,3 +1,18 @@
+codex/create-production-ready-fastapi-project-r78nlw
+# Money Monorepo
+
+## Backend
+- Location: `backend/`
+- FastAPI + PostgreSQL + Alembic
+
+## Frontend (React)
+- Location: `frontend/`
+- Vite + React + TypeScript
+
+### Run frontend
+```bash
+cd frontend
+cp .env.example .env
 # Money Frontend (React + Vite + TypeScript)
 
 Полноценный mobile-first фронтенд для FastAPI backend (`/api/v1`) с ролевым UX:
@@ -71,9 +86,13 @@ python scripts/create_admin.py --email admin@example.com --password 'StrongPass1
 ### 5) Запустить frontend
 
 ```bash
+ main
 npm install
 npm run dev
 ```
+
+codex/create-production-ready-fastapi-project-r78nlw
+By deflt frontend expects backend API at `http://localhost:8000/api/v1`.
 
 ### 6) Как зайти
 
@@ -175,4 +194,4 @@ UI ожидает backend contract из задания: единый форма�
 }
 ```
 
-`message` показывается в toast/inline, `code` логируется в dev-консоль, `details` выводятся в expandable блоке.
+`message` показывается в toast/inline, `code` логируется в dev-консоль, `details` выводятся в expandable блоке. main
